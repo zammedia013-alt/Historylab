@@ -33,8 +33,6 @@ export default async function handler(req, res) {
   );
 
   const data = await response.json();
-
-  // Convert Gemini response format to Anthropic-style so the app works unchanged
   const text = data.candidates?.[0]?.content?.parts?.[0]?.text || '';
   return res.status(200).json({
     content: [{ type: 'text', text }]
