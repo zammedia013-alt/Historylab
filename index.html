@@ -497,6 +497,77 @@ body.bw .google-btn{background:#f5f5f5;border-color:rgba(0,0,0,.2);color:#111}
 body.bw .auth-input{background:#f0f0f0;border-color:rgba(0,0,0,.2);color:#111}
 body.bw .auth-submit{background:#111;color:#fff}
 body.bw .user-tile{background:#ebebeb;border-color:rgba(0,0,0,.12)}
+
+/* ══ XP BAR (sidebar) ══ */
+.xp-bar-wrap{padding:.5rem .7rem;margin-top:.3rem}
+.xp-level-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:.3rem}
+.xp-level-badge{font-size:.65rem;font-weight:800;padding:2px 8px;border-radius:20px;background:linear-gradient(135deg,var(--amb),#f97316);color:#000}
+.xp-title-txt{font-size:.62rem;color:var(--txt3);font-weight:600}
+.xp-track{height:6px;background:var(--card3);border-radius:3px;overflow:hidden}
+.xp-fill{height:6px;background:linear-gradient(90deg,var(--amb),#f97316);border-radius:3px;transition:width .5s ease}
+.xp-nums{display:flex;justify-content:space-between;font-size:.6rem;color:var(--txt3);margin-top:.2rem}
+
+/* ══ XP TOAST ══ */
+.xp-toast{position:fixed;bottom:1.5rem;right:1.5rem;background:linear-gradient(135deg,var(--amb),#f97316);color:#000;font-size:.82rem;font-weight:800;padding:.5rem 1rem;border-radius:20px;z-index:3000;animation:toast-in .3s ease;pointer-events:none;box-shadow:0 4px 16px rgba(245,158,11,.4)}
+@keyframes toast-in{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+
+/* ══ LEVEL UP MODAL ══ */
+.levelup-modal{position:fixed;inset:0;background:rgba(0,0,0,.8);z-index:3000;display:flex;align-items:center;justify-content:center;backdrop-filter:blur(6px)}
+.levelup-modal.hidden{display:none}
+.levelup-box{background:var(--card);border:2px solid var(--amb);border-radius:var(--r);padding:2.5rem 2rem;text-align:center;max-width:320px;width:90vw;box-shadow:0 0 40px rgba(245,158,11,.3)}
+.levelup-emoji{font-size:3.5rem;margin-bottom:.5rem;animation:pop .4s ease}
+@keyframes pop{0%{transform:scale(.5)}70%{transform:scale(1.15)}100%{transform:scale(1)}}
+.levelup-title{font-size:1.4rem;font-weight:900;color:var(--amb);margin-bottom:.25rem}
+.levelup-sub{font-size:.9rem;color:var(--txt2);margin-bottom:.3rem}
+.levelup-badge{display:inline-block;padding:.3rem 1rem;border-radius:20px;background:linear-gradient(135deg,var(--amb),#f97316);color:#000;font-size:.85rem;font-weight:800;margin-bottom:1.2rem}
+.levelup-close{background:var(--pri);border:none;color:#000;font-size:.88rem;font-weight:800;padding:.55rem 1.4rem;border-radius:var(--r2);cursor:pointer;font-family:inherit}
+
+/* ══ PROFILE SCREEN ══ */
+.profile-hero{background:linear-gradient(135deg,#1a1040,#0d2035);border:1px solid rgba(245,158,11,.2);border-radius:var(--r);padding:1.8rem;margin-bottom:1.2rem;text-align:center;position:relative;overflow:hidden}
+.profile-hero::after{content:'';position:absolute;top:-40px;right:-40px;width:180px;height:180px;background:radial-gradient(circle,rgba(245,158,11,.12),transparent 70%);pointer-events:none}
+.profile-avatar-big{width:80px;height:80px;border-radius:50%;margin:0 auto .8rem;border:3px solid var(--amb);display:flex;align-items:center;justify-content:center;font-size:2.2rem;background:var(--card3);overflow:hidden;cursor:pointer;transition:all .2s;position:relative}
+.profile-avatar-big:hover{transform:scale(1.05);border-color:var(--pri)}
+.avatar-edit-hint{position:absolute;bottom:0;left:0;right:0;background:rgba(0,0,0,.6);font-size:.5rem;font-weight:700;text-align:center;padding:2px;color:#fff}
+.profile-name-big{font-size:1.3rem;font-weight:900;letter-spacing:-.3px;margin-bottom:.15rem}
+.profile-title-big{font-size:.82rem;color:var(--amb);font-weight:700;margin-bottom:.9rem}
+.profile-xp-section{background:rgba(245,158,11,.07);border:1px solid rgba(245,158,11,.18);border-radius:var(--r2);padding:.8rem 1rem;margin-bottom:.8rem}
+.profile-xp-big{font-size:2rem;font-weight:900;color:var(--amb);line-height:1}
+.profile-xp-sub{font-size:.7rem;color:var(--txt3);font-weight:600;margin-top:.1rem}
+.profile-xp-track{height:10px;background:var(--card3);border-radius:5px;margin:.6rem 0 .3rem;overflow:hidden}
+.profile-xp-fill{height:10px;background:linear-gradient(90deg,var(--amb),#f97316);border-radius:5px;transition:width .6s ease}
+.profile-stats-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:.5rem;margin-bottom:1.2rem}
+.pstat{background:var(--card2);border:1px solid var(--border);border-radius:var(--r2);padding:.7rem .5rem;text-align:center}
+.pstat-n{font-size:1.4rem;font-weight:900;color:var(--pri);line-height:1}
+.pstat-l{font-size:.62rem;color:var(--txt3);font-weight:600;margin-top:.15rem}
+
+/* ══ AVATAR PICKER ══ */
+.avatar-picker{background:var(--card);border:1px solid var(--border2);border-radius:var(--r);padding:1.2rem;margin-bottom:1.2rem}
+.avatar-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:.5rem;margin-top:.7rem}
+.av-opt{width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.4rem;cursor:pointer;border:2.5px solid transparent;transition:all .15s;background:var(--card3)}
+.av-opt:hover{border-color:var(--pri);transform:scale(1.1)}
+.av-opt.selected{border-color:var(--amb);background:rgba(245,158,11,.1)}
+
+/* ══ SETTINGS ══ */
+.settings-section{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:1.1rem 1.3rem;margin-bottom:.75rem}
+.settings-row{display:flex;align-items:center;justify-content:space-between;padding:.55rem 0;border-bottom:1px solid var(--border)}
+.settings-row:last-child{border-bottom:none}
+.settings-label{font-size:.84rem;font-weight:600;color:var(--txt)}
+.settings-sub{font-size:.72rem;color:var(--txt3);margin-top:.1rem}
+.settings-input{background:var(--bg3);border:1.5px solid var(--border2);border-radius:var(--r3);padding:.4rem .7rem;color:var(--txt);font-family:inherit;font-size:.82rem;width:160px}
+.settings-input:focus{outline:none;border-color:var(--pri)}
+.settings-save{background:var(--pri);border:none;color:#000;font-size:.78rem;font-weight:800;padding:.4rem .9rem;border-radius:var(--r3);cursor:pointer;font-family:inherit}
+.danger-btn{background:transparent;border:1.5px solid rgba(239,68,68,.3);color:var(--dan);font-size:.78rem;font-weight:700;padding:.4rem .9rem;border-radius:var(--r3);cursor:pointer;font-family:inherit;transition:all .15s}
+.danger-btn:hover{background:rgba(239,68,68,.08)}
+
+/* ══ XP HISTORY ══ */
+.xp-hist-item{display:flex;align-items:center;justify-content:space-between;padding:.45rem .5rem;border-radius:var(--r3);font-size:.78rem;margin-bottom:.25rem}
+.xp-hist-item:nth-child(odd){background:var(--bg3)}
+.xp-gained{color:var(--amb);font-weight:800;font-size:.8rem}
+body.bw .xp-level-badge,.body.bw .levelup-badge{background:#111;color:#fff}
+body.bw .xp-fill,.body.bw .profile-xp-fill{background:#111}
+body.bw .profile-hero{background:#ececec}
+body.bw .profile-xp-section{background:#f0f0f0;border-color:rgba(0,0,0,.15)}
+body.bw .profile-xp-big,.body.bw .xp-title-txt,.body.bw .profile-title-big{color:#111}
 </style>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
@@ -542,6 +613,19 @@ body.bw .user-tile{background:#ebebeb;border-color:rgba(0,0,0,.12)}
   </div>
 </div>
 
+
+<!-- LEVEL UP MODAL -->
+<div class="levelup-modal hidden" id="levelup-modal">
+  <div class="levelup-box">
+    <div class="levelup-emoji" id="lu-emoji">🎉</div>
+    <div class="levelup-title">Level Up!</div>
+    <div class="levelup-sub" id="lu-sub">You reached a new level</div>
+    <div class="levelup-badge" id="lu-badge">Level 2</div>
+    <div style="font-size:.8rem;color:var(--txt2);margin-bottom:1.2rem" id="lu-title-txt">Chronicler</div>
+    <button class="levelup-close" onclick="document.getElementById('levelup-modal').classList.add('hidden');confetti()">Awesome! 🎉</button>
+  </div>
+</div>
+
 <div class="app">
 
 <!-- ══════ SIDEBAR ══════ -->
@@ -579,6 +663,9 @@ body.bw .user-tile{background:#ebebeb;border-color:rgba(0,0,0,.12)}
   <div class="nav-item" data-sc="saq"><span class="ni">✏️</span>SAQ Practice</div>
   <div class="nav-item" data-sc="frq"><span class="ni">📝</span>LEQ / FRQ</div>
   <div class="nav-item" data-sc="dbq"><span class="ni">📚</span>DBQ Practice</div>
+  <div class="nav-sec">Account</div>
+  <div class="nav-item" data-sc="profile"><span class="ni">👤</span>My Profile</div>
+  <div class="nav-item" data-sc="settings"><span class="ni">⚙️</span>Settings</div>
 
 </aside>
 
@@ -801,6 +888,22 @@ body.bw .user-tile{background:#ebebeb;border-color:rgba(0,0,0,.12)}
 <div id="timedtest" class="screen">
   <div class="ph"><h1>⏱️ Timed Practice Exam</h1><p>55 questions · 55 minutes · Simulates real AP format</p></div>
   <div id="tt-body"></div>
+</div>
+
+<!-- PROFILE -->
+<div id="profile" class="screen">
+  <div class="ph"><h1>👤 My Profile</h1></div>
+  <div id="profile-body">
+    <div class="empty" style="padding:4rem">Sign in to view your profile</div>
+  </div>
+</div>
+
+<!-- SETTINGS -->
+<div id="settings" class="screen">
+  <div class="ph"><h1>⚙️ Settings</h1></div>
+  <div id="settings-body">
+    <div class="empty" style="padding:4rem">Sign in to access settings</div>
+  </div>
 </div>
 </div><!-- /content -->
 </div><!-- /app -->
@@ -1595,8 +1698,8 @@ function initCatalog(){
 }
 function showUnit(n){
   const u=UNITS.find(x=>x.n===n);
-  const list=document.getElementById('cat-list');
-  const detail=document.getElementById('cat-detail');
+  list=document.getElementById('cat-list');
+  detail=document.getElementById('cat-detail');
   list.style.display='none';
   detail.classList.add('active');
   const rankIcon=(r)=>r==='🔥'?'r1':r==='⭐'?'r2':'r3';
@@ -1781,7 +1884,7 @@ function setPass(i,el){
 }
 function renderPass(){
   const p=PASSES[passIdx];
-  const uc=UNITS.find(u=>u.n==p.unitN);
+  uc=UNITS.find(u=>u.n==p.unitN);
   document.getElementById('pass-body').innerHTML=`
   <div class="pcard">
     <div class="pimg"><img src="${p.img}" alt="${p.imgAlt}" onerror="this.style.display='none'"><div class="pimg-lbl"><strong>${p.imgAlt}</strong></div></div>
@@ -1861,7 +1964,7 @@ initPY();
 // ░░  SAQ  ░░
 // ══════════════════════════════════════════════
 function initSAQ(){
-  const pills=document.getElementById('saq-pills');
+  pills=document.getElementById('saq-pills');
   pills.innerHTML=SAQS.map((s,i)=>`<div class="pill ${i===saqIdx?'active':''}" onclick="setSAQ(${i},this)">U${s.u} · ${s.title.split(' ').slice(0,3).join(' ')}</div>`).join('');
   renderSAQ_();
 }
@@ -1898,7 +2001,7 @@ initSAQ();
 // ░░  LEQ  ░░
 // ══════════════════════════════════════════════
 function initFRQ(){
-  const pills=document.getElementById('frq-pills');
+  pills=document.getElementById('frq-pills');
   pills.innerHTML=LEQS.map((l,i)=>`<div class="pill ${i===leqIdx?'active':''}" onclick="setLEQ(${i},this)">U${l.u} · ${l.title.split('—')[0].trim()}</div>`).join('');
   renderLEQ();
 }
@@ -1930,7 +2033,7 @@ initFRQ();
 // ░░  DBQ  ░░
 // ══════════════════════════════════════════════
 function initDBQ(){
-  const pills=document.getElementById('dbq-pills');
+  pills=document.getElementById('dbq-pills');
   pills.innerHTML=DBQS.map((d,i)=>`<div class="pill ${i===dbqIdx?'active':''}" onclick="setDBQ(${i},this)">${d.title}</div>`).join('');
   renderDBQ_();
 }
@@ -2437,7 +2540,7 @@ initSupabase();
 // ════════════════════════════════════════
 // SUPABASE AUTH & CLOUD SYNC
 // ════════════════════════════════════════
-const _sb = supabase.createClient('https://udfwzixijufvskpxrojx.supabase.co', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVkZnd6aXhpanVmdnNrcHhyb2p4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQzMjc3MjIsImV4cCI6MjA4OTkwMzcyMn0.d4-xkSLC6AP5acu18K1sN11vOD1nN8qw3_ZS9prWcAI');
+
 let _currentUser = null;
 let _authMode = 'signin'; // 'signin' or 'signup'
 
@@ -2570,6 +2673,9 @@ async function saveProgress() {
       dk_cards: [...fcDK_],
       streak_count: parseInt(localStorage.getItem('hl_streak') || '0'),
       last_visit: localStorage.getItem('hl_last_visit') || '',
+      xp: _xp || 0,
+      avatar: _chosenAvatar || '📜',
+      display_name: _displayName || '',
       updated_at: new Date().toISOString()
     });
   } catch(e) { console.log('Cloud save error:', e); }
@@ -2601,10 +2707,382 @@ document.addEventListener('keydown', function(e) {
   if (e.key === 'Escape') closeAuth();
 });
 
+
+// ════════════════════════════════════════
+// XP + LEVELING SYSTEM
+// ════════════════════════════════════════
+var LEVELS = [
+  {level:1, xp:0,    title:'Apprentice Historian',  icon:'📜'},
+  {level:2, xp:100,  title:'Chronicler',             icon:'🗒️'},
+  {level:3, xp:250,  title:'Scholar',                icon:'📚'},
+  {level:4, xp:500,  title:'Archivist',              icon:'🏛️'},
+  {level:5, xp:1000, title:'Historian',              icon:'🎓'},
+  {level:6, xp:2000, title:'Professor',              icon:'🧑‍🏫'},
+  {level:7, xp:3500, title:'Grand Historian',        icon:'🏆'},
+  {level:8, xp:5000, title:'APWH Master',            icon:'⭐'},
+];
+
+var AVATARS = ['📜','🗺️','⚔️','🏛️','🌍','📚','🔭','🏺','🎓','👑','🦅','🐉','⚡','🔥','🌟','💎','🛡️','🗡️','🌊','🏔️','🧭','📿','🎭','🪙'];
+
+var _xp = 0;
+var _xpHistory = [];
+var _chosenAvatar = '📜';
+var _displayName = '';
+
+function getLevelInfo(xp) {
+  var info = LEVELS[0];
+  for (var i = 0; i < LEVELS.length; i++) {
+    if (xp >= LEVELS[i].xp) info = LEVELS[i];
+  }
+  return info;
+}
+function getNextLevel(xp) {
+  for (var i = 0; i < LEVELS.length; i++) {
+    if (LEVELS[i].xp > xp) return LEVELS[i];
+  }
+  return null;
+}
+
+function awardXP(amount, reason) {
+  var oldLevel = getLevelInfo(_xp).level;
+  _xp += amount;
+  _xpHistory.unshift({amount: amount, reason: reason, time: new Date().toLocaleTimeString()});
+  if (_xpHistory.length > 50) _xpHistory.pop();
+  var newLevel = getLevelInfo(_xp).level;
+  saveXP();
+  updateXPBar();
+  showXPToast('+' + amount + ' XP — ' + reason);
+  if (newLevel > oldLevel) {
+    setTimeout(function() { showLevelUp(newLevel); }, 800);
+  }
+}
+
+function showXPToast(msg) {
+  var old = document.querySelector('.xp-toast');
+  if (old) old.remove();
+  var el = document.createElement('div');
+  el.className = 'xp-toast';
+  el.textContent = msg;
+  document.body.appendChild(el);
+  setTimeout(function() { if(el.parentNode) el.remove(); }, 2200);
+}
+
+function showLevelUp(level) {
+  var info = LEVELS.find(function(l){ return l.level === level; }) || LEVELS[LEVELS.length-1];
+  document.getElementById('lu-emoji').textContent = info.icon;
+  document.getElementById('lu-sub').textContent = 'You reached Level ' + level + '!';
+  document.getElementById('lu-badge').textContent = info.icon + ' Level ' + level;
+  document.getElementById('lu-title-txt').textContent = info.title;
+  document.getElementById('levelup-modal').classList.remove('hidden');
+}
+
+function updateXPBar() {
+  var info = getLevelInfo(_xp);
+  var next = getNextLevel(_xp);
+  var wrap = document.getElementById('xp-bar-wrap');
+  if (wrap && _currentUser) wrap.style.display = 'block';
+  var lvlBadge = document.getElementById('xp-lvl-badge');
+  if (lvlBadge) lvlBadge.textContent = 'Lv ' + info.level;
+  var titleEl = document.getElementById('xp-title-sidebar');
+  if (titleEl) titleEl.textContent = info.title;
+  var curEl = document.getElementById('xp-cur');
+  if (curEl) curEl.textContent = _xp + ' XP';
+  var nxtEl = document.getElementById('xp-nxt');
+  var fillEl = document.getElementById('xp-fill-bar');
+  if (next) {
+    var pct = Math.round((_xp - info.xp) / (next.xp - info.xp) * 100);
+    if (fillEl) fillEl.style.width = pct + '%';
+    if (nxtEl) nxtEl.textContent = 'Next: ' + next.xp + ' XP';
+  } else {
+    if (fillEl) fillEl.style.width = '100%';
+    if (nxtEl) nxtEl.textContent = 'MAX LEVEL';
+  }
+}
+
+function saveXP() {
+  localStorage.setItem('hl_xp', _xp);
+  localStorage.setItem('hl_xp_hist', JSON.stringify(_xpHistory.slice(0,20)));
+  localStorage.setItem('hl_avatar', _chosenAvatar);
+  localStorage.setItem('hl_display_name', _displayName);
+  if (_currentUser) {
+    _sb.from('user_progress').upsert({
+      id: _currentUser.id,
+      known_cards: [...fcKnown],
+      dk_cards: [...fcDK_],
+      streak_count: parseInt(localStorage.getItem('hl_streak')||'0'),
+      last_visit: localStorage.getItem('hl_last_visit')||'',
+      xp: _xp,
+      avatar: _chosenAvatar,
+      display_name: _displayName,
+      updated_at: new Date().toISOString()
+    }).then(function(){});
+  }
+}
+
+function loadXP() {
+  _xp = parseInt(localStorage.getItem('hl_xp')||'0');
+  try { _xpHistory = JSON.parse(localStorage.getItem('hl_xp_hist')||'[]'); } catch(e){ _xpHistory=[]; }
+  _chosenAvatar = localStorage.getItem('hl_avatar') || '📜';
+  _displayName = localStorage.getItem('hl_display_name') || '';
+  updateXPBar();
+}
+loadXP();
+
+// ════════════════════════════════════════
+// PROFILE SCREEN
+// ════════════════════════════════════════
+function initProfile() {
+  var body = document.getElementById('profile-body');
+  if (!body) return;
+  if (!_currentUser) {
+    body.innerHTML = '<div class="empty" style="padding:3rem">Sign in to view your profile</div>';
+    return;
+  }
+  var info = getLevelInfo(_xp);
+  var next = getNextLevel(_xp);
+  var pct = next ? Math.round((_xp - info.xp)/(next.xp - info.xp)*100) : 100;
+  var name = _displayName || (_currentUser.user_metadata && _currentUser.user_metadata.full_name) || _currentUser.email.split('@')[0];
+  var knownCount = fcKnown.size;
+  var streak = parseInt(localStorage.getItem('hl_streak')||'0');
+  var quizScores = JSON.parse(localStorage.getItem('hl_quiz_scores')||'[]');
+  var avgScore = quizScores.length ? Math.round(quizScores.reduce(function(a,b){return a+b;},0)/quizScores.length) : 0;
+
+  var histHTML = _xpHistory.length ?
+    _xpHistory.slice(0,10).map(function(h){
+      return '<div class="xp-hist-item"><span>' + h.reason + '</span><span class="xp-gained">+' + h.amount + ' XP</span></div>';
+    }).join('') :
+    '<div style="color:var(--txt3);font-size:.8rem;padding:.5rem">No XP earned yet — start studying!</div>';
+
+  body.innerHTML =
+    '<div class="profile-hero">' +
+    '<div class="profile-avatar-big" onclick="showAvatarPicker()" title="Change avatar">' +
+    _chosenAvatar +
+    '<div class="avatar-edit-hint">EDIT</div></div>' +
+    '<div class="profile-name-big">' + name + '</div>' +
+    '<div class="profile-title-big">' + info.icon + ' ' + info.title + '</div>' +
+    '<div class="profile-xp-section">' +
+    '<div class="profile-xp-big">' + _xp.toLocaleString() + '</div>' +
+    '<div class="profile-xp-sub">Total XP Earned</div>' +
+    '<div class="profile-xp-track"><div class="profile-xp-fill" style="width:' + pct + '%"></div></div>' +
+    '<div style="font-size:.7rem;color:var(--txt3)">' + (next ? 'Level ' + (info.level+1) + ' in ' + (next.xp - _xp) + ' XP' : 'MAX LEVEL REACHED!') + '</div>' +
+    '</div></div>' +
+
+    '<div class="profile-stats-grid">' +
+    '<div class="pstat"><div class="pstat-n">' + info.level + '</div><div class="pstat-l">Level</div></div>' +
+    '<div class="pstat"><div class="pstat-n">' + knownCount + '</div><div class="pstat-l">Cards Known</div></div>' +
+    '<div class="pstat"><div class="pstat-n">' + streak + '</div><div class="pstat-l">Day Streak</div></div>' +
+    '</div>' +
+
+    '<div class="sec-l">🏆 Level Roadmap</div>' +
+    '<div class="q-card" style="padding:.9rem">' +
+    LEVELS.map(function(l){
+      var done = _xp >= l.xp;
+      var cur = getLevelInfo(_xp).level === l.level;
+      return '<div style="display:flex;align-items:center;gap:.75rem;padding:.4rem .3rem;opacity:' + (done?'1':'.45') + '">' +
+        '<div style="width:32px;height:32px;border-radius:50%;background:' + (cur?'var(--amb)':(done?'var(--suc)':'var(--card3)')) + ';display:flex;align-items:center;justify-content:center;font-size:.85rem;flex-shrink:0">' + l.icon + '</div>' +
+        '<div style="flex:1"><div style="font-size:.82rem;font-weight:700;color:var(--txt)">' + l.title + '</div><div style="font-size:.68rem;color:var(--txt3)">Level ' + l.level + ' · ' + l.xp + ' XP</div></div>' +
+        (cur ? '<span style="font-size:.65rem;font-weight:800;color:var(--amb);background:rgba(245,158,11,.12);padding:2px 8px;border-radius:20px">CURRENT</span>' : '') +
+        (done && !cur ? '<span style="color:var(--suc);font-size:.9rem">✓</span>' : '') +
+        '</div>';
+    }).join('') +
+    '</div>' +
+
+    '<div class="sec-l">⚡ Recent XP</div>' +
+    '<div class="q-card" style="padding:.9rem">' + histHTML + '</div>' +
+
+    '<div id="avatar-picker-area"></div>';
+}
+
+function showAvatarPicker() {
+  var area = document.getElementById('avatar-picker-area');
+  if (!area) return;
+  if (area.innerHTML) { area.innerHTML = ''; return; }
+  area.innerHTML =
+    '<div class="avatar-picker">' +
+    '<div class="sec-l" style="margin:0 0 .5rem">Choose Your Avatar</div>' +
+    '<div class="avatar-grid">' +
+    AVATARS.map(function(av){
+      return '<div class="av-opt' + (av===_chosenAvatar?' selected':'') + '" onclick="pickAvatar(this.textContent)" title="' + av + '">' + av + '</div>';
+    }).join('') +
+    '</div></div>';
+}
+
+function pickAvatar(av) {
+  _chosenAvatar = av;
+  saveXP();
+  // Update sidebar avatar if showing
+  var avEl = document.querySelector('.user-av');
+  if (avEl) avEl.innerHTML = av;
+  initProfile();
+}
+
+// ════════════════════════════════════════
+// SETTINGS SCREEN
+// ════════════════════════════════════════
+function initSettings() {
+  var body = document.getElementById('settings-body');
+  if (!body) return;
+  if (!_currentUser) {
+    body.innerHTML = '<div class="empty" style="padding:3rem">Sign in to access settings</div>';
+    return;
+  }
+  var name = _displayName || (_currentUser.user_metadata && _currentUser.user_metadata.full_name) || _currentUser.email.split('@')[0];
+  body.innerHTML =
+    '<div class="settings-section">' +
+    '<div class="sec-l" style="margin-top:0">Profile</div>' +
+    '<div class="settings-row"><div><div class="settings-label">Display Name</div><div class="settings-sub">Shown on your profile</div></div><input class="settings-input" id="dn-input" value="' + name + '" placeholder="Your name"/></div>' +
+    '<div class="settings-row"><div><div class="settings-label">Email</div><div class="settings-sub">Your login email</div></div><span style="font-size:.78rem;color:var(--txt3)">' + _currentUser.email + '</span></div>' +
+    '<div style="margin-top:.75rem"><button class="settings-save" onclick="saveDisplayName()">Save Changes</button></div>' +
+    '</div>' +
+
+    '<div class="settings-section">' +
+    '<div class="sec-l" style="margin-top:0">Appearance</div>' +
+    '<div class="settings-row"><div><div class="settings-label">Black & White Mode</div><div class="settings-sub">High contrast, print-friendly</div></div>' +
+    '<div class="toggle-track' + (document.body.classList.contains('bw')?' on':'') + '" id="bw-track-settings" onclick="toggleBW();this.classList.toggle(&quot;on&quot;)" style="cursor:pointer"><div class="toggle-thumb"></div></div>' +
+    '</div></div>' +
+
+    '<div class="settings-section">' +
+    '<div class="sec-l" style="margin-top:0">Progress</div>' +
+    '<div class="settings-row"><div><div class="settings-label">Reset Flashcard Progress</div><div class="settings-sub">Clears all known/unknown marks</div></div>' +
+    '<button class="danger-btn" onclick="resetFlashcards()">Reset Cards</button></div>' +
+    '<div class="settings-row"><div><div class="settings-label">Reset XP</div><div class="settings-sub">Start from zero XP and Level 1</div></div>' +
+    '<button class="danger-btn" onclick="resetXP()">Reset XP</button></div>' +
+    '</div>' +
+
+    '<div class="settings-section">' +
+    '<div class="sec-l" style="margin-top:0">Account</div>' +
+    '<div class="settings-row"><div><div class="settings-label">Sign Out</div><div class="settings-sub">Sign out of your account</div></div>' +
+    '<button class="danger-btn" onclick="signOut()">Sign Out</button></div>' +
+    '</div>';
+}
+
+function saveDisplayName() {
+  var val = document.getElementById('dn-input');
+  if (!val) return;
+  _displayName = val.value.trim();
+  saveXP();
+  showXPToast('Name updated!');
+  // Update sidebar
+  renderUserTile(_currentUser);
+}
+
+function resetFlashcards() {
+  if (!confirm('Reset all flashcard progress? This cannot be undone.')) return;
+  fcKnown = new Set(); fcDK_ = new Set();
+  saveProgress(); renderRings();
+  showXPToast('Flashcard progress reset');
+}
+
+function resetXP() {
+  if (!confirm('Reset all XP and return to Level 1? This cannot be undone.')) return;
+  _xp = 0; _xpHistory = [];
+  saveXP(); updateXPBar();
+  showXPToast('XP reset');
+}
+
+// ════════════════════════════════════════
+// PATCH go() for profile + settings
+// ════════════════════════════════════════
+var _baseGoProfile = go;
+go = function(id) {
+  _baseGoProfile(id);
+  if (id === 'profile') initProfile();
+  if (id === 'settings') initSettings();
+};
+
+// ════════════════════════════════════════
+// XP HOOKS — award XP on key actions
+// ════════════════════════════════════════
+
+// Flashcard known
+var _baseMarkFC = markFC;
+markFC = function(k) {
+  _baseMarkFC(k);
+  if (k) awardXP(5, 'Flashcard mastered');
+};
+
+// Quiz question correct — patch pickAns
+var _basePickAns = pickAns;
+pickAns = function(i) {
+  _basePickAns(i);
+  if (quizQs[quizIdx] && i === quizQs[quizIdx].a) {
+    awardXP(10, 'Quiz question correct');
+  }
+};
+
+// Quiz completed bonus
+var _baseFinishQ = finishQ_;
+finishQ_ = function() {
+  _baseFinishQ();
+  awardXP(25, 'Quiz completed');
+};
+
+// Timed exam completed
+var _baseFinishTT = finishTT;
+finishTT = function() {
+  _baseFinishTT();
+  awardXP(100, 'Timed exam completed');
+};
+
+// Daily login streak
+var _baseUpdateStreak = updateStreak;
+updateStreak = function() {
+  var prevStreak = parseInt(localStorage.getItem('hl_streak')||'0');
+  _baseUpdateStreak();
+  var newStreak = parseInt(localStorage.getItem('hl_streak')||'0');
+  if (newStreak > prevStreak) awardXP(20, 'Daily streak bonus');
+};
+
+// Essay written (100+ words)
+function checkEssayXP(textareaId, essayType) {
+  var ta = document.getElementById(textareaId);
+  if (!ta) return;
+  var words = ta.value.trim().split(/\s+/).length;
+  if (words >= 100) {
+    var key = 'xp_essay_' + textareaId + '_' + new Date().toDateString();
+    if (!localStorage.getItem(key)) {
+      localStorage.setItem(key, '1');
+      awardXP(50, essayType + ' essay written');
+    }
+  }
+}
+
+// ════════════════════════════════════════
+// PATCH renderUserTile to show avatar
+// ════════════════════════════════════════
+var _baseRenderUserTile = renderUserTile;
+renderUserTile = function(user) {
+  _baseRenderUserTile(user);
+  if (user) {
+    var avEl = document.querySelector('.user-av');
+    if (avEl && _chosenAvatar) avEl.innerHTML = _chosenAvatar;
+    updateXPBar();
+  }
+};
+
+// ════════════════════════════════════════
+// LOAD XP FROM CLOUD on login
+// ════════════════════════════════════════
+var _baseLoadCloud = loadCloudProgress;
+loadCloudProgress = async function() {
+  await _baseLoadCloud();
+  if (!_currentUser) return;
+  try {
+    var result = await _sb.from('user_progress').select('xp,avatar,display_name').eq('id', _currentUser.id).single();
+    if (result.data) {
+      if (result.data.xp) _xp = Math.max(_xp, result.data.xp);
+      if (result.data.avatar) _chosenAvatar = result.data.avatar;
+      if (result.data.display_name) _displayName = result.data.display_name;
+      saveXP();
+      updateXPBar();
+    }
+  } catch(e) {}
+};
+
 function confetti(){
   ['#22d3ee','#818cf8','#f59e0b','#10b981','#f472b6','#fb923c'].forEach((c,i)=>{
     for(let j=0;j<8;j++)setTimeout(()=>{
-      const el=document.createElement('div');el.className='confetti-p';
+      el=document.createElement('div');el.className='confetti-p';
       el.style.cssText=`left:${Math.random()*100}vw;top:-8px;background:${c};animation-duration:${1.4+Math.random()*.8}s;animation-delay:${Math.random()*.4}s`;
       document.body.appendChild(el);setTimeout(()=>el.remove(),2800);
     },(i*8+j)*25);
