@@ -2416,14 +2416,7 @@ function showAuthOverlay() {
   document.getElementById('auth-overlay').style.display = 'flex';
   localStorage.removeItem('hl_auth_skipped');
 }
-function signInGoogle() {
-  if (!_supa) return;
-  document.getElementById('auth-msg').textContent = 'Redirecting to Google…';
-  _supa.auth.signInWithOAuth({
-    provider: 'google',
-    options: { redirectTo: window.location.origin + window.location.pathname }
-  });
-}
+// signInGoogle handled below
 
 function skipAuth() {
   _authSkipped = true;
@@ -2560,10 +2553,16 @@ let _authMode = 'signin'; // 'signin' or 'signup'
       closeAuth();
       await loadCloudProgress();
       renderRings();
-      if (document.getElementById('home').classList.contains('active')) updateStreak();
+      updateStreak();
+      // Refresh profile/settings if currently viewing them
+      if (document.getElementById('profile').classList.contains('active')) initProfile();
+      if (document.getElementById('settings').classList.contains('active')) initSettings();
     } else {
       _currentUser = null;
       renderUserTile(null);
+      // Refresh profile/settings to show signed-out state
+      if (document.getElementById('profile') && document.getElementById('profile').classList.contains('active')) initProfile();
+      if (document.getElementById('settings') && document.getElementById('settings').classList.contains('active')) initSettings();
     }
   });
 })();
@@ -2594,7 +2593,7 @@ function toggleAuthMode() {
 async function signInGoogle() {
   var { error } = await _sb.auth.signInWithOAuth({
     provider: 'google',
-    options: { redirectTo: window.location.origin }
+    options: { redirectTo: 'https://historylab.vercel.app' }
   });
   if (error) showAuthErr(error.message);
 }
@@ -2835,7 +2834,12 @@ function initProfile() {
   var body = document.getElementById('profile-body');
   if (!body) return;
   if (!_currentUser) {
-    body.innerHTML = '<div class="empty" style="padding:3rem">Sign in to view your profile</div>';
+    body.innerHTML = '<div style="text-align:center;padding:3rem 1rem">' +
+      '<div style="font-size:3rem;margin-bottom:1rem">👤</div>' +
+      '<div style="font-size:1.1rem;font-weight:800;margin-bottom:.5rem">Sign in to view your profile</div>' +
+      '<div style="font-size:.82rem;color:var(--txt3);margin-bottom:1.5rem;line-height:1.6">Track your XP, level up, choose an avatar,<br>and sync your progress across devices.</div>' +
+      '<button class="btn btn-pri" onclick="openAuth()" style="font-size:.9rem;padding:.65rem 1.4rem">🔐 Sign In / Sign Up</button>' +
+      '</div>';
     return;
   }
   var info = getLevelInfo(_xp);
@@ -2923,7 +2927,12 @@ function initSettings() {
   var body = document.getElementById('settings-body');
   if (!body) return;
   if (!_currentUser) {
-    body.innerHTML = '<div class="empty" style="padding:3rem">Sign in to access settings</div>';
+    body.innerHTML = '<div style="text-align:center;padding:3rem 1rem">' +
+      '<div style="font-size:3rem;margin-bottom:1rem">⚙️</div>' +
+      '<div style="font-size:1.1rem;font-weight:800;margin-bottom:.5rem">Sign in to access settings</div>' +
+      '<div style="font-size:.82rem;color:var(--txt3);margin-bottom:1.5rem;line-height:1.6">Manage your display name, avatar,<br>appearance, and account options.</div>' +
+      '<button class="btn btn-pri" onclick="openAuth()" style="font-size:.9rem;padding:.65rem 1.4rem">🔐 Sign In / Sign Up</button>' +
+      '</div>';
     return;
   }
   var name = _displayName || (_currentUser.user_metadata && _currentUser.user_metadata.full_name) || _currentUser.email.split('@')[0];
