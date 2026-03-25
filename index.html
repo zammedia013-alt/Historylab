@@ -2243,7 +2243,13 @@ renderSAQ_ = function() {
 var _baseGoStreak = go;
 go = function(id) {
   _baseGoStreak(id);
-  if (id === 'home') { updateStreak(); renderRings(); }
+  if (id === 'home') {
+    updateStreak();
+    renderRings();
+    if (!_currentUser && !localStorage.getItem('hl_dismissed_auth')) {
+      setTimeout(function(){ openAuth(); }, 300);
+    }
+  }
 };
 
 // ── EXTENDED SAMPLE ANSWERS ──
@@ -2350,7 +2356,7 @@ function showDBQSample(dbqKey) {
 // ════════════════════════════════════════
 var SUPA_URL = 'https://udfwzixijufvskpxrojx.supabase.co';
 var SUPA_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVkZnd6aXhpanVmdnNrcHhyb2p4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQzMjc3MjIsImV4cCI6MjA4OTkwMzcyMn0.d4-xkSLC6AP5acu18K1sN11vOD1nN8qw3_ZS9prWcAI';
-// signInGoogle handled below
+var _sb = supabase.createClient(SUPA_URL, SUPA_KEY);
 
 
 
