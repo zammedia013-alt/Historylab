@@ -568,6 +568,31 @@ body.bw .xp-fill,.body.bw .profile-xp-fill{background:#111}
 body.bw .profile-hero{background:#ececec}
 body.bw .profile-xp-section{background:#f0f0f0;border-color:rgba(0,0,0,.15)}
 body.bw .profile-xp-big,.body.bw .xp-title-txt,.body.bw .profile-title-big{color:#111}
+
+/* ══ HEIMLER VIDEOS ══ */
+.video-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:.85rem}
+.video-card{background:var(--card);border:1px solid var(--border);border-radius:var(--r);overflow:hidden;transition:all .18s;cursor:pointer}
+.video-card:hover{border-color:var(--pri);transform:translateY(-2px);box-shadow:0 6px 20px rgba(34,211,238,.1)}
+.video-thumb{position:relative;width:100%;padding-top:56.25%;background:var(--bg3);overflow:hidden}
+.video-thumb img{position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover}
+.video-play{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:48px;height:48px;background:rgba(255,0,0,.9);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.1rem;transition:all .15s}
+.video-card:hover .video-play{background:red;transform:translate(-50%,-50%) scale(1.1)}
+.video-info{padding:.8rem .9rem}
+.video-unit{font-size:.6rem;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:.25rem}
+.video-title{font-size:.85rem;font-weight:700;line-height:1.4;margin-bottom:.2rem;color:var(--txt)}
+.video-desc{font-size:.72rem;color:var(--txt3);line-height:1.5}
+.video-modal{position:fixed;inset:0;background:rgba(0,0,0,.92);z-index:4000;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:1rem}
+.video-modal.hidden{display:none}
+.video-modal-inner{width:100%;max-width:860px}
+.video-modal-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:.6rem}
+.video-modal-title{font-size:.95rem;font-weight:700;color:#fff}
+.video-modal-close{background:rgba(255,255,255,.1);border:none;color:#fff;font-size:1.1rem;cursor:pointer;padding:.3rem .7rem;border-radius:8px;transition:background .15s}
+.video-modal-close:hover{background:rgba(255,255,255,.2)}
+.video-frame-wrap{position:relative;width:100%;padding-top:56.25%;background:#000;border-radius:var(--r)}
+.video-frame-wrap iframe{position:absolute;top:0;left:0;width:100%;height:100%;border:none;border-radius:var(--r)}
+body.bw .video-card{background:#fff;border-color:rgba(0,0,0,.15)}
+body.bw .video-card:hover{border-color:#111}
+@media(max-width:768px){.video-grid{grid-template-columns:1fr}}
 </style>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
@@ -639,6 +664,7 @@ body.bw .profile-xp-big,.body.bw .xp-title-txt,.body.bw .profile-title-big{color
   <div class="nav-item" data-sc="saq"><span class="ni">✏️</span>SAQ Practice</div>
   <div class="nav-item" data-sc="frq"><span class="ni">📝</span>LEQ / FRQ</div>
   <div class="nav-item" data-sc="dbq"><span class="ni">📚</span>DBQ Practice</div>
+  <div class="nav-item" data-sc="heimler"><span class="ni">🎬</span>Heimler Videos</div>
   <div class="nav-sec">Account</div>
   <div class="nav-item" data-sc="profile"><span class="ni">👤</span>My Profile</div>
   <div class="nav-item" data-sc="settings"><span class="ni">⚙️</span>Settings</div>
@@ -691,6 +717,7 @@ body.bw .profile-xp-big,.body.bw .xp-title-txt,.body.bw .profile-title-big{color
     <div class="qc" onclick="go('quiz')"><div class="qc-ico">⚡</div><div class="qc-n">Quiz</div><div class="qc-d">Multiple choice with feedback</div></div>
     <div class="qc" onclick="go('passages')"><div class="qc-ico">📜</div><div class="qc-n">Passages</div><div class="qc-d">Primary source analysis</div></div>
     <div class="qc" onclick="go('pastyears')"><div class="qc-ico">📅</div><div class="qc-n">Past AP Exams</div><div class="qc-d">Real prompts 2015–2024</div></div>
+    <div class="qc" onclick="go('heimler')"><div class="qc-ico">🎬</div><div class="qc-n">Heimler Videos</div><div class="qc-d">APWH video reviews by unit</div></div>
     <div class="qc" onclick="go('timedtest')"><div class="qc-ico">⏱️</div><div class="qc-n">Timed Exam</div><div class="qc-d">55 min full practice test</div></div>
     <div class="qc" onclick="go('saq')"><div class="qc-ico">✏️</div><div class="qc-n">SAQ</div><div class="qc-d">Rubric-guided short answers</div></div>
     <div class="qc" onclick="go('frq')"><div class="qc-ico">📝</div><div class="qc-n">LEQ</div><div class="qc-d">Full essay with 6-pt rubric</div></div>
@@ -879,6 +906,43 @@ body.bw .profile-xp-big,.body.bw .xp-title-txt,.body.bw .profile-title-big{color
   <div class="ph"><h1>⚙️ Settings</h1></div>
   <div id="settings-body">
     <div class="empty" style="padding:4rem">Sign in to access settings</div>
+  </div>
+</div>
+
+<!-- HEIMLER VIDEOS -->
+<div id="heimler" class="screen">
+  <div class="ph">
+    <h1>🎬 Heimler's History</h1>
+    <p>Video reviews by Seth Heimler — one of the best APWH teachers on YouTube. Click any video to watch.</p>
+  </div>
+  <div class="pills" id="heimler-pills">
+    <div class="pill active" onclick="setHV('all',this)">All Units</div>
+    <div class="pill" onclick="setHV('1',this)">U1</div>
+    <div class="pill" onclick="setHV('2',this)">U2</div>
+    <div class="pill" onclick="setHV('3',this)">U3</div>
+    <div class="pill" onclick="setHV('4',this)">U4</div>
+    <div class="pill" onclick="setHV('5',this)">U5</div>
+    <div class="pill" onclick="setHV('6',this)">U6</div>
+    <div class="pill" onclick="setHV('7',this)">U7</div>
+    <div class="pill" onclick="setHV('8',this)">U8</div>
+    <div class="pill" onclick="setHV('9',this)">U9</div>
+  </div>
+  <div class="video-grid" id="heimler-grid"></div>
+</div>
+
+<!-- VIDEO MODAL -->
+<div class="video-modal hidden" id="video-modal">
+  <div class="video-modal-inner">
+    <div class="video-modal-top">
+      <div class="video-modal-title" id="vm-title"></div>
+      <button class="video-modal-close" onclick="closeVideo()">✕ Close</button>
+    </div>
+    <div class="video-frame-wrap">
+      <iframe id="vm-frame" src="" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    </div>
+    <div style="margin-top:.6rem;font-size:.75rem;color:rgba(255,255,255,.5);text-align:center">
+      Or watch on <a id="vm-yt-link" href="#" target="_blank" style="color:rgba(255,255,255,.7)">YouTube ↗</a>
+    </div>
   </div>
 </div>
 </div><!-- /content -->
@@ -1314,6 +1378,35 @@ const QS=[
   {u:'9',q:'Which development most symbolized the end of the Cold War?',o:['The Vietnam War\'s conclusion','The Cuban Missile Crisis resolution','The fall of the Berlin Wall (1989)','The dissolution of NATO'],a:2,e:'The Berlin Wall\'s fall on November 9, 1989 symbolized the collapse of communist regimes across Eastern Europe. Within two years, the Soviet Union itself dissolved (December 1991).'},
   {u:'9',q:'China\'s post-1978 economic transformation is best characterized as:',o:['Full capitalist democracy','Socialism with Chinese characteristics — market economy under Communist Party control','Soviet-style central planning','Liberal democracy with free elections'],a:1,e:'Deng Xiaoping\'s "socialism with Chinese characteristics" opened China to foreign investment and market mechanisms while the Communist Party maintained strict political control — a unique model of development.'},
   {u:'9',q:'The Arab Spring\'s outcomes demonstrated that:',o:['Social media can reliably produce lasting democratic change','Economic development automatically leads to democracy','Political change requires more than removing an authoritarian leader','U.S. intervention is necessary for successful revolutions'],a:2,e:'While social media and protests successfully toppled authoritarian leaders, most Arab Spring countries descended into civil war, military rule, or authoritarian retrenchment — showing political systems need deeper institutional change.'},
+
+  {u:'1',q:'Which of the following best describes the significance of the Pax Mongolica for trade networks?',o:['It permanently ended trade along the Silk Roads','It created a period of relative stability that enabled increased cross-Eurasian commerce','It shifted all trade from overland routes to sea routes','It established Chinese dominance over all Asian trade'],a:1,e:'The Pax Mongolica (Mongol Peace) created conditions of relative stability across Eurasia under Mongol rule, allowing merchants to travel more safely along Silk Road routes and increasing the volume of long-distance trade.'},
+  {u:'1',q:'The tributary system used by China in the pre-modern period primarily served to:',o:['Force neighboring states to pay for Chinese military protection','Legitimize Chinese cultural and political superiority while granting trade access','Exploit neighboring economies through unfair exchange rates','Spread Chinese religion to neighboring peoples'],a:1,e:'The tributary system was diplomatic theater: neighboring states acknowledged Chinese superiority through ceremonial tribute, and China rewarded them with trading rights and diplomatic recognition — a mutually beneficial arrangement that spread Chinese cultural influence.'},
+  {u:'1',q:'Which development best explains the rapid spread of Islam across the Indian Ocean trade network in the period c.1200-1450?',o:['Military conquest of coastal trading cities','Muslim merchants establishing diaspora communities in port cities','Forced conversion of Buddhist populations','The Ottoman Empire\'s naval expansion'],a:1,e:'Muslim merchants established permanent communities in trading ports across East Africa, India, and Southeast Asia. Local rulers often converted voluntarily to gain access to Islamic commercial networks and the legal protections offered to Muslim merchants.'},
+  {u:'1',q:'The House of Wisdom in Baghdad is best described as:',o:['A royal palace for Abbasid Caliphs','A center for translating and advancing Greek, Persian, and Indian knowledge','A military academy training Islamic warriors','A religious school teaching only Quranic interpretation'],a:1,e:'The House of Wisdom (Bayt al-Hikmah) was an intellectual center where scholars translated Greek, Persian, and Indian texts into Arabic and made original advances in mathematics (algebra), astronomy, and medicine — a hallmark of the Islamic Golden Age.'},
+  {u:'2',q:'The Black Death\'s rapid spread across Afro-Eurasia in the 14th century is BEST explained by:',o:['Deliberate use of plague as a biological weapon','The expansion and connectivity of long-distance trade routes','Poor hygiene practices unique to medieval Europe','Climate change that forced rats into cities'],a:1,e:'The plague spread because trade networks had made Afro-Eurasia more interconnected than ever. Infected fleas traveled on rats aboard merchant ships and caravans, moving from Central Asia to the Black Sea to Western Europe via established commercial routes.'},
+  {u:'2',q:'Ibn Battuta\'s Rihla (Travels) is historically valuable primarily because it:',o:['Proved that Muslims discovered the Americas before Columbus','Documented the geographic extent and cultural unity of the 14th-century Islamic world','Described the military conquest of sub-Saharan Africa','Established trade relationships between China and Europe'],a:1,e:'Ibn Battuta traveled over 75,000 miles across the Islamic world (1325-1354), documenting trade networks, political systems, cultural practices, and economic conditions — providing historians with a uniquely comprehensive primary source on 14th-century Afro-Eurasia.'},
+  {u:'2',q:'Which of the following best explains why the Mali Empire became so wealthy in the period c.1200-1450?',o:['Mali conquered neighboring empires and seized their treasuries','Mali controlled key points along the Trans-Saharan gold and salt trade routes','Mali developed advanced industrial technology','Mali received tribute from the Ottoman Empire'],a:1,e:'Mali\'s wealth derived from controlling the trans-Saharan trade, particularly the exchange of gold (from mines in southern Mali) for salt (from the Saharan mines at Taghaza). Controlling these trade routes made Mali emperors like Mansa Musa extraordinarily wealthy.'},
+  {u:'3',q:'The devshirme system used by the Ottoman Empire served primarily to:',o:['Collect taxes from conquered territories','Recruit and train a loyal military and administrative elite from Christian boys','Spread Islam through forced conversion of all non-Muslims','Maintain agricultural production through serf labor'],a:1,e:'The devshirme collected Christian boys from Balkan territories, converted them to Islam, and trained them as Janissary soldiers or administrators. Because they had no family ties to Ottoman noble families, they were loyal to the sultan rather than to competing aristocratic factions.'},
+  {u:'3',q:'Akbar the Great\'s approach to governing the Mughal Empire is BEST characterized as:',o:['Imposing Islamic law uniformly on all subjects','Using religious tolerance and Hindu-Muslim cooperation to strengthen imperial stability','Promoting Hinduism as the state religion to win popular support','Isolating India from all foreign cultural influences'],a:1,e:'Akbar recognized that governing a majority-Hindu empire required accommodation. He abolished the jizya tax on non-Muslims, employed Hindu Rajput nobles, and promoted a syncretic court culture — pragmatic policies that strengthened Mughal unity.'},
+  {u:'3',q:'How did the Ming Dynasty\'s decision to end Zheng He\'s voyages after 1433 affect China\'s global position?',o:['It had no significant impact as China remained the world\'s largest economy','It allowed China to focus on internal development, making it more prosperous','It meant China missed the Age of Exploration, ceding maritime dominance to Europeans','It caused China to be immediately conquered by European powers'],a:2,e:'By abandoning maritime expansion, Ming China left the seas to Portugal and Spain, which then established global trading empires. China\'s deliberate retreat from the Indian Ocean gave European powers the opportunity to dominate the sea routes that connected the world.'},
+  {u:'4',q:'The encomienda system in Spanish America is BEST described as:',o:['A system of free market trade between Spain and its colonies','A labor system granting Spanish colonizers rights to Indigenous labor and tribute','A religious program converting Indigenous people to Catholicism','A land ownership system modeled on European feudalism'],a:1,e:'The encomienda granted Spanish colonizers (encomenderos) legal rights to demand labor and tribute from Indigenous people in a designated area. In practice it became a system of brutal exploitation that, combined with epidemic disease, devastated Indigenous populations.'},
+  {u:'4',q:'The primary reason the Portuguese shifted from Indigenous labor to African enslaved labor in Brazil was:',o:['African workers were considered more skilled at plantation agriculture','The Catholic Church prohibited enslaving Indigenous people','Indigenous populations collapsed due to European diseases, eliminating the labor supply','African workers voluntarily migrated to Brazil seeking economic opportunity'],a:2,e:'Epidemic diseases (smallpox, measles) killed 80-90% of Indigenous Brazilians within a century of Portuguese contact. With the Indigenous labor supply destroyed, Portuguese colonizers turned to the African slave trade to provide workers for their profitable sugar plantations.'},
+  {u:'4',q:'The Manila Galleon trade is historically significant because it:',o:['Connected North America directly to Asia for the first time','Linked the Americas to Asia through the Pacific, completing a truly global trade network','Established Portuguese dominance over the spice trade','Created the first European colony in China'],a:1,e:'The Manila Galleons (1565-1815) carried American silver from Acapulco to Manila, where it was exchanged for Asian goods. This created the first direct and regular transpacific trade route, connecting the Americas to Asia and completing a genuinely global commercial network.'},
+  {u:'5',q:'The Haitian Revolution (1791-1804) challenged global norms MOST fundamentally by:',o:['Proving that small nations could defeat large empires in warfare','Demonstrating that enslaved people could successfully overthrow slavery and create a sovereign republic','Establishing the first democratic constitution in the Western Hemisphere','Showing that Napoleon\'s military was not invincible'],a:1,e:'The Haitian Revolution was unprecedented: it was the only successful large-scale slave revolution in history, establishing the principle that enslaved people had natural rights and could exercise them through revolution — a terrifying precedent for slaveholding societies throughout the Americas.'},
+  {u:'5',q:'The Congress of Vienna (1815) attempted to address the consequences of the Napoleonic Wars primarily by:',o:['Promoting democratic revolutions across Europe','Restoring conservative monarchical order and creating a balance of power to prevent future revolutions','Establishing a free trade zone across Europe','Creating a unified German nation-state'],a:1,e:'The great powers (Austria, Britain, Prussia, Russia) at Vienna sought to turn back the clock: restore deposed monarchies, redraw borders to create a balance of power, and establish the Concert of Europe to collectively suppress future revolutionary or nationalist movements.'},
+  {u:'5',q:'Which best explains why creoles, rather than enslaved or Indigenous people, led most Latin American independence movements?',o:['Creoles had the most to gain from ending slavery and colonial hierarchy','Creoles had the education, wealth, and political connections to organize independence movements, while seeking autonomy from Spain — not social equality','Enslaved and Indigenous people supported continued Spanish rule','Creoles were the majority population in most Latin American colonies'],a:1,e:'Creoles resented being excluded from top government positions (reserved for peninsulares) despite their wealth and education. They led independence movements to gain political power for themselves, not to dismantle the racial and social hierarchies from which they benefited.'},
+  {u:'6',q:'Social Darwinism was used to justify European imperialism by arguing that:',o:['All people are equal and deserve democratic government','European conquest was natural and beneficial because it spread civilization to inferior peoples','Competition between nations leads to prosperity for all','Industrial technology should be shared equally across the world'],a:1,e:'Social Darwinism falsely applied evolutionary theory to human societies, claiming that European dominance proved European racial and cultural superiority. This pseudoscience provided intellectual justification for brutal colonial exploitation by framing it as a natural and even beneficial process.'},
+  {u:'6',q:'The Berlin Conference of 1884-85 is primarily significant because it:',o:['Created the first African-led government in sub-Saharan Africa','Formalized the division of Africa among European powers without African representation','Ended the Atlantic slave trade through international agreement','Established free trade across all African territories'],a:1,e:'The Berlin Conference allowed European powers to partition Africa systematically, drawing borders that ignored ethnic, cultural, and linguistic realities. No African representatives were present. The conference formalized imperialism and established the colonial boundaries that still largely define African nations today.'},
+  {u:'6',q:'The Ethiopian victory at the Battle of Adwa (1896) is historically significant primarily because:',o:['It ended European colonialism across sub-Saharan Africa','It was the first African military battle against a European power','It demonstrated that an African nation could defeat a European colonial army, inspiring later nationalist movements','It caused Italy to abandon all colonial ambitions'],a:2,e:'Adwa proved that European armies were not invincible and that African resistance could succeed. Emperor Menelik II\'s victory over Italy became a powerful symbol for African nationalists throughout the colonial period and into the 20th century independence movements.'},
+  {u:'7',q:'Which best explains why the alliance system transformed the assassination of Franz Ferdinand into a world war?',o:['European nations were looking for any excuse to fight each other','The alliance system created mutual defense obligations that pulled nation after nation into the conflict','The assassination killed a very popular leader whose death inflamed global public opinion','The United States immediately entered the war following the assassination'],a:1,e:'The alliance system meant that Austria-Hungary\'s declaration of war on Serbia triggered Russia\'s mobilization (defending Serbia), which triggered Germany\'s declaration of war on Russia (defending Austria), which triggered France and Britain\'s entry (defending their alliance commitments). A local dispute became a world war within weeks.'},
+  {u:'7',q:'The Holocaust represents a historically unique genocide primarily because:',o:['It targeted a religious minority for the first time in history','It combined modern industrial organization and bureaucratic efficiency with extreme nationalist racial ideology to systematically murder millions','It was the largest genocide in world history by number of victims','It was carried out by a democracy rather than an authoritarian state'],a:1,e:'While other genocides existed, the Holocaust was uniquely industrial: railway networks, death camps, bureaucratic record-keeping, and a professional chain of command made systematic murder on an unprecedented scale possible. It required both the ideological motivation of extreme nationalism and modern industrial-bureaucratic organization.'},
+  {u:'7',q:'The Treaty of Versailles (1919) is often described as a cause of World War II because:',o:['It failed to punish Germany sufficiently for starting WWI','The harsh reparations, territorial losses, and war guilt clause created economic devastation and nationalist resentment that Hitler successfully exploited','It created the League of Nations, which weakened German sovereignty','It divided Germany between France and Britain'],a:1,e:'The Versailles settlement imposed $33 billion in reparations, stripped German territories, and humiliated Germany with the War Guilt Clause. When the Great Depression worsened Germany\'s economic crisis, Hitler\'s promise to reverse Versailles and restore German greatness found a receptive, desperate audience.'},
+  {u:'8',q:'The Cuban Missile Crisis (1962) is historically significant primarily as:',o:['The moment the Cold War officially began','The closest the world came to nuclear war, demonstrating the dangers of superpower nuclear rivalry','The event that caused the Soviet Union to collapse','The first time the United States used military force against communism'],a:1,e:'The 13-day standoff over Soviet missiles in Cuba brought the U.S. and USSR to the brink of nuclear war. Its peaceful resolution led to the installation of the Moscow-Washington hotline and eventually to arms control agreements — showing both the dangers and the possibilities of Cold War diplomacy.'},
+  {u:'8',q:'Which of the following best explains why decolonization accelerated after World War II?',o:['European powers voluntarily decided to give up their colonies for moral reasons','WWII weakened European colonial powers economically and militarily while strengthening nationalist movements and creating international pressure for self-determination','The United States military forced European nations to decolonize','The League of Nations ordered decolonization in 1945'],a:1,e:'WWII weakened Britain and France economically, exposed European military vulnerability (especially to Japan), spread Woodrow Wilson\'s self-determination ideals through the Atlantic Charter, and created the UN framework that supported independence. All these forces converged to make maintaining colonies increasingly difficult and costly.'},
+  {u:'8',q:'The Non-Aligned Movement, founded at the Bandung Conference (1955), is best understood as:',o:['An alliance between developing nations and the Soviet Union against Western imperialism','An attempt by newly independent nations to avoid Cold War entanglement and chart an independent foreign policy path','A military alliance to protect smaller nations from superpower aggression','An economic organization to promote trade among developing nations'],a:1,e:'The NAM represented a third path: newly independent nations like India, Egypt, and Yugoslavia refused to align with either superpower bloc. By organizing collectively, they could leverage Cold War competition to extract aid from both sides while maintaining genuine sovereignty.'},
+  {u:'9',q:'Economic globalization after 1990 is BEST characterized by:',o:['Equal distribution of economic benefits across all nations','Rapid growth in international trade and investment that created significant winners and losers, with outcomes heavily dependent on state capacity and policy','A return to economic nationalism and protectionism','The elimination of poverty in developing nations through free trade'],a:1,e:'Post-Cold War globalization created unprecedented economic integration. But outcomes varied dramatically: China used state-directed policies to become the world\'s factory; sub-Saharan African nations often remained raw material exporters; and deindustrializing developed nations saw manufacturing job losses that fueled political backlash.'},
+  {u:'9',q:'The 2008 global financial crisis demonstrated which of the following?',o:['That free markets always self-correct without government intervention','That financial deregulation and interconnected global markets could transmit economic crises rapidly across national borders','That developing nations were immune to financial crises in wealthy nations','That the U.S. economy was no longer the most influential in the world'],a:1,e:'The 2008 crisis originated in deregulated U.S. mortgage markets but rapidly spread globally through interconnected financial systems. It demonstrated that financial globalization created systemic risk: problems in one market could cascade worldwide, requiring coordinated government intervention on an unprecedented scale.'},
+  {u:'9',q:'Which best explains the rise of populist movements in wealthy democratic nations in the period after 2008?',o:['These nations had become too democratic, leading to unstable governments','Economic anxiety from globalization, deindustrialization, and perceived cultural change fueled anti-establishment political movements','Populist movements were funded by foreign governments seeking to destabilize democracies','The internet created new political parties that replaced established ones'],a:1,e:'The combination of manufacturing job losses from globalization, the 2008 financial crisis, growing inequality, and demographic change created economic anxiety that populist politicians channeled into anti-elite, anti-immigration political movements in the U.S. (Trump), UK (Brexit), France (Le Pen), and elsewhere.'},
 ];
 
 /* ── PASSAGES ── */
@@ -1876,7 +1969,7 @@ function renderPass(){
         <textarea class="abox" id="pq${i}" rows="3" placeholder="Write your answer (3–5 sentences)…"></textarea>
       </div>`).join('')}
       <div class="btn-row">
-        <button class="show-rubric-btn" onclick="document.getElementById('pass-rubric-box').style.display='block'">📋 Show Rubric</button>
+        <button class="show-rubric-btn" onclick="var r=document.getElementById('pass-rubric-box');r.style.display='block';r.scrollIntoView({behavior:'smooth',block:'start'})">📋 Show Rubric</button>
         <button class="btn btn-ghost" onclick="renderPass()">Clear</button>
       </div>
       <div id="pfb"></div>
@@ -1930,7 +2023,7 @@ function renderPY(){
       '<textarea class="abox essay" id="pyt'+gi+'" rows="8" placeholder="Write your practice response here after reviewing the prompt and resources above…" oninput="document.getElementById(&quot;pywc'+gi+'&quot;).textContent=wc(this.value)+&quot; words&quot;"></textarea>'+
       '<div style="display:flex;justify-content:space-between;align-items:center;margin-top:.4rem">'+
       '<span class="wc" id="pywc'+gi+'">0 words</span></div>'+
-      '<div class="btn-row"><button class="show-rubric-btn" onclick="document.getElementById(&quot;py-rubric-box&quot;).style.display=&quot;block&quot;">📋 Show Rubric</button></div>'+
+      '<div class="btn-row"><button class="show-rubric-btn" onclick="var r=document.getElementById(&quot;py-rubric-box&quot;);r.style.display=&quot;block&quot;;r.scrollIntoView({behavior:&quot;smooth&quot;,block:&quot;start&quot;})">📋 Show Rubric</button></div>'+
       '</div></div>';
   }).join('');
 }
@@ -1966,7 +2059,7 @@ function renderSAQ_(){
     <div style="margin-top:.3rem"><span class="wc" id="sqwc${i}">${wc(saqTexts[k][i])} words</span></div>
   </div>`).join('')}
   <div class="btn-row">
-    <button class="show-rubric-btn" onclick="document.getElementById('saq-rubric-box').style.display='block'">📋 Show Rubric</button>
+    <button class="show-rubric-btn" onclick="var r=document.getElementById('saq-rubric-box');r.style.display='block';r.scrollIntoView({behavior:'smooth',block:'start'});checkAndAwardEssayXP('saq')">📋 Show Rubric</button>
     <button class="btn btn-ghost" onclick="saqTexts['${k}']=['','',''];renderSAQ_()">Clear</button>
   </div>
   <div id="saqfb"></div>`;
@@ -2250,6 +2343,7 @@ go = function(id) {
       setTimeout(function(){ openAuth(); }, 300);
     }
   }
+  if (id === 'heimler') initHV();
 };
 
 // ── EXTENDED SAMPLE ANSWERS ──
@@ -2826,15 +2920,22 @@ function initProfile() {
 function showAvatarPicker() {
   var area = document.getElementById('avatar-picker-area');
   if (!area) return;
-  if (area.innerHTML) { area.innerHTML = ''; return; }
+  if (area.innerHTML) {
+    area.innerHTML = '';
+    return;
+  }
   area.innerHTML =
-    '<div class="avatar-picker">' +
+    '<div class="avatar-picker" id="avatar-picker-box">' +
     '<div class="sec-l" style="margin:0 0 .5rem">Choose Your Avatar</div>' +
     '<div class="avatar-grid">' +
     AVATARS.map(function(av){
       return '<div class="av-opt' + (av===_chosenAvatar?' selected':'') + '" onclick="pickAvatar(this.textContent)" title="' + av + '">' + av + '</div>';
     }).join('') +
     '</div></div>';
+  setTimeout(function(){
+    var box = document.getElementById('avatar-picker-box');
+    if (box) box.scrollIntoView({behavior:'smooth', block:'start'});
+  }, 80);
 }
 
 function pickAvatar(av) {
@@ -2982,6 +3083,34 @@ function checkEssayXP(textareaId, essayType) {
   }
 }
 
+// Called when user clicks Show Rubric after writing
+function checkAndAwardEssayXP(type) {
+  var taMap = {saq:'sq0', leq:'leq-txt', dbq:'dbq-txt'};
+  var xpMap = {saq:30, leq:60, dbq:75};
+  var labelMap = {saq:'SAQ completed', leq:'LEQ essay completed', dbq:'DBQ essay completed'};
+  var taId = taMap[type];
+  var ta = document.getElementById(taId);
+  var words = ta ? ta.value.trim().split(/\s+/).filter(function(w){return w.length>0;}).length : 0;
+  // For SAQ check all 3 parts
+  if (type === 'saq') {
+    words = 0;
+    for (var i=0;i<3;i++) {
+      var t = document.getElementById('sq'+i);
+      if (t) words += t.value.trim().split(/\s+/).filter(function(w){return w.length>0;}).length;
+    }
+  }
+  var minWords = type === 'saq' ? 60 : 100;
+  if (words >= minWords) {
+    var key = 'xp_' + type + '_' + saqIdx + '_' + new Date().toDateString();
+    if (type === 'leq') key = 'xp_leq_' + leqIdx + '_' + new Date().toDateString();
+    if (type === 'dbq') key = 'xp_dbq_' + dbqIdx + '_' + new Date().toDateString();
+    if (!localStorage.getItem(key)) {
+      localStorage.setItem(key, '1');
+      awardXP(xpMap[type], labelMap[type]);
+    }
+  }
+}
+
 // ════════════════════════════════════════
 // PATCH renderUserTile to show avatar
 // ════════════════════════════════════════
@@ -3013,6 +3142,117 @@ loadCloudProgress = async function() {
     }
   } catch(e) {}
 };
+
+
+// ════════════════════════════════════════
+// HEIMLER'S HISTORY VIDEOS
+// ════════════════════════════════════════
+var HV_FILTER = 'all';
+var HEIMLER_VIDEOS = [
+  // Unit 1
+  {u:'1', id:'JJdkbUZdBco', title:'Unit 1 Summary — The Global Tapestry', desc:'Overview of all major Unit 1 civilizations: Dar al-Islam, Song China, Mongols, Sub-Saharan Africa, and Medieval Europe.'},
+  {u:'1', id:'AKTyPgwfLSk', title:'Dar al-Islam — Islam and the Islamic World', desc:'The spread of Islam, the Abbasid Caliphate, and how Islamic merchants connected Afro-Eurasia.'},
+  {u:'1', id:'4U4ZJZFQCVU', title:'Song Dynasty China and Its Innovations', desc:'Paper money, gunpowder, compass, champa rice, and the tributary system under the Song Dynasty.'},
+  {u:'1', id:'2wVHDwLCqhI', title:'Mongol Empire — Destruction and Pax Mongolica', desc:'How the Mongols conquered Eurasia and then facilitated the greatest era of cross-cultural exchange.'},
+  // Unit 2
+  {u:'2', id:'JMgEzKbBRWg', title:'Unit 2 Summary — Networks of Exchange', desc:'Silk Roads, Indian Ocean, Trans-Saharan, and Mediterranean trade networks and what they exchanged.'},
+  {u:'2', id:'iCiGMoHisFk', title:'The Black Death and Its Effects', desc:'How bubonic plague spread via trade routes and transformed European society, economy, and religion.'},
+  {u:'2', id:'Bqm8n_AKpOA', title:'Indian Ocean Trade Network', desc:'Monsoon winds, dhow ships, Swahili Coast, and how Muslim merchants dominated pre-1500 Indian Ocean trade.'},
+  // Unit 3
+  {u:'3', id:'N8wA-BTZWI4', title:'Unit 3 Summary — Land-Based Empires', desc:'Ottoman, Safavid, Mughal, and Ming/Qing empires: how gunpowder transformed state-building.'},
+  {u:'3', id:'mInQoFdILQA', title:'Ottoman Empire — Rise and Administration', desc:'Devshirme, Janissaries, millet system, and how the Ottomans governed their diverse empire.'},
+  {u:'3', id:'gFRxmi4uCGo', title:'Mughal Empire and Religious Tolerance', desc:'Akbar, Din-i-Ilahi, and why religious tolerance was central to Mughal imperial strategy.'},
+  // Unit 4
+  {u:'4', id:'wOclF9eP5uM', title:'Unit 4 Summary — Transoceanic Interconnections', desc:'European maritime expansion, Columbian Exchange, Atlantic slave trade, and silver trade networks.'},
+  {u:'4', id:'8xKwHMNkKHs', title:'The Columbian Exchange', desc:'How the transfer of crops, animals, diseases, and people between hemispheres transformed the world.'},
+  {u:'4', id:'CDi3GJpVHoE', title:'Atlantic Slave Trade', desc:'The triangular trade, Middle Passage, and how the plantation system shaped the Atlantic World economy.'},
+  {u:'4', id:'MSXKGFCpZIs', title:'The Silver Trade and Global Commerce', desc:'Potosi silver, Manila Galleons, and how American silver connected the Americas to Asia.'},
+  // Unit 5
+  {u:'5', id:'oBOEHqFzfYE', title:'Unit 5 Summary — Revolutions', desc:'American, French, Haitian, and Latin American revolutions: causes, outcomes, and Enlightenment connections.'},
+  {u:'5', id:'YF2h4FWm3kA', title:'Haitian Revolution — The Only Successful Slave Revolution', desc:'Why the Haitian Revolution was historically unique and how it challenged global assumptions about slavery.'},
+  {u:'5', id:'PBsVWRuGV_A', title:'French Revolution and Napoleon', desc:'Causes of the French Revolution, the Terror, Napoleon rise, and how he spread revolutionary ideas.'},
+  // Unit 6
+  {u:'6', id:'AlKtAME7hHo', title:'Unit 6 Summary — Consequences of Industrialization', desc:'Industrial Revolution, New Imperialism, Social Darwinism, and resistance to colonialism.'},
+  {u:'6', id:'KJ0D4-lSbU4', title:'The Industrial Revolution', desc:'Origins in Britain, steam power, factories, and how industrialization transformed labor and society.'},
+  {u:'6', id:'Kgb_2bAnwg8', title:'New Imperialism — The Scramble for Africa', desc:'Motives for imperialism, the Berlin Conference, Social Darwinism, and African resistance.'},
+  // Unit 7
+  {u:'7', id:'Cd2ch4XV84s', title:'Unit 7 Summary — Global Conflict', desc:'WWI causes (MANIA), Russian Revolution, rise of fascism, WWII, and the Holocaust.'},
+  {u:'7', id:'U2TMb3P5NHM', title:'World War I — Causes and Consequences', desc:'MANIA framework, trench warfare, Treaty of Versailles, and why WWI led directly to WWII.'},
+  {u:'7', id:'jFICRFKtAc4', title:'Rise of Fascism and World War II', desc:'How the Great Depression enabled Hitler, appeasement, WWII causes, and the Holocaust.'},
+  // Unit 8
+  {u:'8', id:'SbqLR3AGYIY', title:'Unit 8 Summary — Cold War and Decolonization', desc:'Cold War structure, proxy wars, decolonization, Non-Aligned Movement, and détente.'},
+  {u:'8', id:'y9HjvHZfCUI', title:'The Cold War — Containment and Proxy Wars', desc:'Truman Doctrine, Marshall Plan, NATO, Korean War, Vietnam War, and Cuban Missile Crisis.'},
+  {u:'8', id:'mhoGMJOEEos', title:'Decolonization After WWII', desc:'Why European empires collapsed after WWII and how nationalism shaped the new independent nations.'},
+  // Unit 9
+  {u:'9', id:'dRqHvLWRVX4', title:'Unit 9 Summary — Globalization', desc:'Economic globalization, WTO, internet revolution, climate change, 9/11, and populist backlash.'},
+  {u:'9', id:'x54HNZBY3js', title:'Globalization — Winners and Losers', desc:"China's rise, neoliberalism, Washington Consensus, and why globalization created both growth and inequality."},
+  {u:'9', id:'xLMsQnxGBRI', title:'21st Century Challenges', desc:'9/11 and War on Terror, Arab Spring, climate change, and the rise of populism after 2008.'},
+];
+
+function initHV() {
+  renderHV();
+}
+
+function setHV(u, el) {
+  HV_FILTER = u;
+  document.querySelectorAll('#heimler-pills .pill').forEach(function(p){ p.classList.remove('active'); });
+  el.classList.add('active');
+  renderHV();
+}
+
+function renderHV() {
+  var filtered = HV_FILTER === 'all' ? HEIMLER_VIDEOS : HEIMLER_VIDEOS.filter(function(v){ return v.u === HV_FILTER; });
+  var grid = document.getElementById('heimler-grid');
+  if (!grid) return;
+  var UNIT_COLORS = ['','#f472b6','#fb923c','#facc15','#4ade80','#60a5fa','#c084fc','#f87171','#34d399','#38bdf8'];
+  grid.innerHTML = filtered.map(function(v) {
+    var col = UNIT_COLORS[parseInt(v.u)] || '#22d3ee';
+    var thumb = 'https://img.youtube.com/vi/' + v.id + '/mqdefault.jpg';
+    var safeTitle = v.title.replace(/'/g, '&apos;');
+    return '<div class="video-card" data-vid="' + v.id + '" data-title="' + safeTitle + '" onclick="openVideo(this.dataset.vid,this.dataset.title)">' +
+      '<div class="video-thumb">' +
+      '<img src="' + thumb + '" alt="" onerror="this.style.background=&quot;#1a1a3a&quot;">' +
+      '<div class="video-play">▶</div>' +
+      '</div>' +
+      '<div class="video-info">' +
+      '<div class="video-unit" style="color:' + col + '">Unit ' + v.u + '</div>' +
+      '<div class="video-title">' + v.title + '</div>' +
+      '<div class="video-desc">' + v.desc + '</div>' +
+      '</div></div>';
+  }).join('');
+}
+
+function openVideo(videoId, title) {
+  var modal = document.getElementById('video-modal');
+  var frame = document.getElementById('vm-frame');
+  var titleEl = document.getElementById('vm-title');
+  var ytLink = document.getElementById('vm-yt-link');
+  if (!modal || !frame) return;
+  titleEl.textContent = title;
+  frame.src = 'https://www.youtube.com/embed/' + videoId + '?autoplay=1&rel=0';
+  ytLink.href = 'https://www.youtube.com/watch?v=' + videoId;
+  modal.classList.remove('hidden');
+  document.body.style.overflow = 'hidden';
+  // Award XP for watching a video (once per day per video)
+  var key = 'xp_video_' + videoId + '_' + new Date().toDateString();
+  if (!localStorage.getItem(key)) {
+    localStorage.setItem(key, '1');
+    awardXP(15, 'Heimler video watched');
+  }
+}
+
+function closeVideo() {
+  var modal = document.getElementById('video-modal');
+  var frame = document.getElementById('vm-frame');
+  if (frame) frame.src = '';
+  if (modal) modal.classList.add('hidden');
+  document.body.style.overflow = '';
+}
+
+// Close on Escape
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') closeVideo();
+});
 
 function confetti(){
   ['#22d3ee','#818cf8','#f59e0b','#10b981','#f472b6','#fb923c'].forEach((c,i)=>{
