@@ -574,19 +574,7 @@ body.bw .profile-xp-big,.body.bw .xp-title-txt,.body.bw .profile-title-big{color
 </head>
 
 
-<div class="auth-overlay" id="auth-overlay">
-  <div class="auth-box">
-    <div class="auth-logo">🧪</div>
-    <div class="auth-title">Welcome to HistoryLab</div>
-    <div class="auth-sub">Sign in to save your progress, flashcard scores, and study streak across any device.</div>
-    <button class="auth-google-btn" onclick="signInGoogle()">
-      <img src="https://www.google.com/favicon.ico" alt="Google">
-      Continue with Google
-    </button>
-    <div class="auth-skip" onclick="skipAuth()">Continue without signing in</div>
-    <div id="auth-msg" style="margin-top:.6rem;font-size:.75rem;color:var(--txt3)"></div>
-  </div>
-</div>
+
 
 
 <!-- AUTH MODAL -->
@@ -630,19 +618,7 @@ body.bw .profile-xp-big,.body.bw .xp-title-txt,.body.bw .profile-title-big{color
 
 <!-- ══════ SIDEBAR ══════ -->
 
-<div id="auth-overlay" class="auth-overlay" style="display:none">
-  <div class="auth-card">
-    <div class="auth-logo">🧪</div>
-    <div class="auth-title">Welcome to HistoryLab</div>
-    <div class="auth-sub">Sign in to save your progress across devices and track your streak.</div>
-    <button class="auth-btn" onclick="signInGoogle()">
-      <img src="https://www.google.com/favicon.ico" alt="Google">
-      Continue with Google
-    </button>
-    <div class="auth-skip" onclick="skipAuth()">Continue without signing in</div>
-    <div class="auth-error" id="auth-err"></div>
-  </div>
-</div>
+
 
 <button class="hamburger" onclick="toggleSidebar()"><span></span><span></span><span></span></button>
 <aside class="sidebar" id="sidebar">
@@ -2374,76 +2350,13 @@ function showDBQSample(dbqKey) {
 // ════════════════════════════════════════
 var SUPA_URL = 'https://udfwzixijufvskpxrojx.supabase.co';
 var SUPA_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVkZnd6aXhpanVmdnNrcHhyb2p4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQzMjc3MjIsImV4cCI6MjA4OTkwMzcyMn0.d4-xkSLC6AP5acu18K1sN11vOD1nN8qw3_ZS9prWcAI';
-var _supa = null;
-var _user = null;
-var _authSkipped = false;
-
-function initSupabase() {
-  try {
-    _supa = supabase.createClient(SUPA_URL, SUPA_KEY);
-    // Check existing session
-    _supa.auth.getSession().then(function(res) {
-      if (res.data && res.data.session) {
-        _user = res.data.session.user;
-        onSignedIn(_user);
-      } else {
-        var skipped = localStorage.getItem('hl_auth_skipped');
-        if (skipped === '1') {
-          skipAuth();
-        } else {
-          document.getElementById('auth-overlay').style.display = 'flex';
-        }
-      }
-    });
-    // Listen for auth changes
-    _supa.auth.onAuthStateChange(function(event, session) {
-      if (event === 'SIGNED_IN' && session) {
-        _user = session.user;
-        onSignedIn(_user);
-      } else if (event === 'SIGNED_OUT') {
-        _user = null;
-        renderUserBadge();
-      }
-    });
-  } catch(e) {
-    console.warn('Supabase init failed:', e);
-    skipAuth();
-  }
-}
-
-
-function showAuthOverlay() {
-  document.getElementById('auth-overlay').style.display = 'flex';
-  localStorage.removeItem('hl_auth_skipped');
-}
 // signInGoogle handled below
 
-function skipAuth() {
-  _authSkipped = true;
-  localStorage.setItem('hl_auth_skipped', '1');
-  var ov = document.getElementById('auth-overlay');
-  if (ov) ov.style.display = 'none';
-  renderUserBadge();
-}
 
-function signOut() {
-  if (_supa && _user) {
-    _supa.auth.signOut();
-  }
-  _user = null;
-  _authSkipped = false;
-  localStorage.removeItem('hl_auth_skipped');
-  renderUserBadge();
-  document.getElementById('auth-overlay').style.display = 'flex';
-}
 
-function onSignedIn(user) {
-  var ov = document.getElementById('auth-overlay');
-  if (ov) ov.style.display = 'none';
-  localStorage.removeItem('hl_auth_skipped');
-  renderUserBadge();
-  loadCloudProgress();
-}
+
+
+
 
 function renderUserBadge() {
   var wrap = document.getElementById('user-badge-wrap');
@@ -2526,8 +2439,6 @@ saveProgress = function() {
   saveCloudProgress();
 };
 
-// Init on load
-initSupabase();
 
 
 // ════════════════════════════════════════
@@ -2544,6 +2455,11 @@ let _authMode = 'signin'; // 'signin' or 'signup'
     _currentUser = session.user;
     renderUserTile(session.user);
     await loadCloudProgress();
+  } else {
+    // Show sign-in modal on first visit (not if they already dismissed it)
+    if (!localStorage.getItem('hl_dismissed_auth')) {
+      setTimeout(function() { openAuth(); }, 600);
+    }
   }
   // Listen for auth changes
   _sb.auth.onAuthStateChange(async function(event, session) {
@@ -2573,6 +2489,7 @@ function openAuth() {
 }
 function closeAuth() {
   document.getElementById('auth-modal').classList.add('hidden');
+  localStorage.setItem('hl_dismissed_auth', '1');
   document.getElementById('auth-err').style.display = 'none';
   document.getElementById('auth-err').textContent = '';
 }
@@ -2593,7 +2510,7 @@ function toggleAuthMode() {
 async function signInGoogle() {
   var { error } = await _sb.auth.signInWithOAuth({
     provider: 'google',
-    options: { redirectTo: 'https://historylab.vercel.app' }
+    options: { redirectTo: window.location.origin }
   });
   if (error) showAuthErr(error.message);
 }
@@ -2652,6 +2569,9 @@ async function signOut() {
   await _sb.auth.signOut();
   _currentUser = null;
   renderUserTile(null);
+  localStorage.removeItem('hl_dismissed_auth');
+  if (document.getElementById('profile').classList.contains('active')) initProfile();
+  if (document.getElementById('settings').classList.contains('active')) initSettings();
 }
 
 // ── CLOUD SAVE ──
